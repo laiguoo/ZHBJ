@@ -27,7 +27,7 @@
             android:theme="@style/NotitleTheme" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/NotitleTheme" />
+            android:theme="@style/Theme.PageIndicatorDefaults" />
     </application>
 
 </manifest>

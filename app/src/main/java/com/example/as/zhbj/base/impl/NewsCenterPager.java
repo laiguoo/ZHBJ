@@ -75,7 +75,7 @@ public class NewsCenterPager extends BasePager {
      * 从服务器获取数据
      */
     private void getDataFromServer() {
-        JSONObject js_request = new JSONObject();//服务器需要传参的json对象
+//        JSONObject js_request = new JSONObject();//服务器需要传参的json对象
         RequestParams params = new RequestParams(GlobalConstants.CATEGORY_URL);
        /* params.setAsJsonContent(true);
         params.setBodyContent(js_request.toString());*/
@@ -123,7 +123,7 @@ public class NewsCenterPager extends BasePager {
         leftMenuFragment.setMenuData(mNewsData.data);
         //初始化四个菜单详情页
         mMenuDetailPagers = new ArrayList<>();
-        mMenuDetailPagers.add(new NewsMenuDetailPager(mActivity));
+        mMenuDetailPagers.add(new NewsMenuDetailPager(mActivity,mNewsData.data.get(0).children));
         mMenuDetailPagers.add(new TopicMenuDetailPager(mActivity));
         mMenuDetailPagers.add(new PhotosMenuDetailPager(mActivity));
         mMenuDetailPagers.add(new InteractMenuDetailPager(mActivity));

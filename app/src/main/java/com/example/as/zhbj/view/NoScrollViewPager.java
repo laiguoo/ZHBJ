@@ -20,6 +20,21 @@ public class NoScrollViewPager extends ViewPager {
         super(context, attrs);
     }
 
+    /**
+     * 事件拦截
+     * @param ev
+     * @return
+     */
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return false;   //false不拦截
+    }
+
+    /**
+     * 事件拦截后处理
+     * @param ev
+     * @return
+     */
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
