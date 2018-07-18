@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:layout_marginRight="5dp"
+        android:background="#a000"
+        android:padding="1dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_demo" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/iv_icon"
+        android:layout_toRightOf="@+id/iv_icon"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="卡斯比符合领取熬不过牛绕口令阿莱两三百骷髅撒啊啊啊啊啊啊啊啊啊啊到了高考题拖拖拖拖拖拖拖拖拖拖拉萨过扩女奥奥奥奥奥奥奥奥奥奥奥奥奥奥奥奥奥奥奥奥奥巨人GV不考虑大苏菲；"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/iv_icon"
+        android:text="2015-6-12"
+        android:textColor="#8000"
+        android:textSize="16sp" />
+</RelativeLayout>
