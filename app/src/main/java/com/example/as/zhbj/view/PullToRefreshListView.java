@@ -44,6 +44,7 @@ public class PullToRefreshListView extends ListView implements AbsListView.OnScr
     private ProgressBar pbProgress;
     private OnRefreshListener mListener;
     private View mFooterView;
+    private int mFooterViewMeasuredHeight;
 
     public PullToRefreshListView(Context context) {
         super(context);
@@ -105,7 +106,7 @@ public class PullToRefreshListView extends ListView implements AbsListView.OnScr
         mFooterView = View.inflate(getContext(), R.layout.pull_to_refresh_footer, null);
         this.addFooterView(mFooterView);
         mFooterView.measure(0,0);
-        int mFooterViewMeasuredHeight = mFooterView.getMeasuredHeight();
+        mFooterViewMeasuredHeight = mFooterView.getMeasuredHeight();
         mFooterView.setPadding(0, -mFooterViewMeasuredHeight, 0, 0);
 
         this.setOnScrollListener(this); //设置滑动监听
@@ -234,15 +235,24 @@ public class PullToRefreshListView extends ListView implements AbsListView.OnScr
      * 刷新结束，收起控件
      */
     public void onRefreshCompleted(boolean success) {
-        mHeaderView.setPadding(0, -mMeasuredHeight, 0, 0);
-        tvTitle.setText("下拉刷新");
-        mCurrentState = STATE_PULL_TO_REFRESH;
-        pbProgress.setVisibility(View.INVISIBLE);
-        ivArrow.setVisibility(View.VISIBLE);
+        if (!isLoadMore) {
+            mHeaderView.setPadding(0, -mMeasuredHeight, 0, 0);
+            tvTitle.setText("下拉刷新");
+            mCurrentState = STATE_PULL_TO_REFRESH;
+            pbProgress.setVisibility(View.INVISIBLE);
+            ivArrow.setVisibility(View.VISIBLE);
 
-        if (success) {  //只有刷新成功才更新时间
-            setCurrentTime();
+            if (success) {  //只有刷新成功才更新时间
+                setCurrentTime();
+            }
+        } else {
+            //加载更多
+            mFooterView.setPadding(0, -mFooterViewMeasuredHeight, 0, 0);//隐藏布局
+            isLoadMore = false;
+
         }
+
+
     }
 
     /**
@@ -252,17 +262,29 @@ public class PullToRefreshListView extends ListView implements AbsListView.OnScr
         mListener = listener;
     }
 
+    private boolean isLoadMore; //标记是否正在加载更多
+
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         if (scrollState == SCROLL_STATE_IDLE) {
             int lastVisiblePosition = getLastVisiblePosition();
+
+            Log.i(TAG, "onScrollStateChanged: " + getCount());
+            Log.i(TAG, "onScrollStateChanged: " + getHeaderViewsCount());
+            Log.i(TAG, "onScrollStateChanged: " + getFooterViewsCount());
+
             int count = getCount();
             Log.i(TAG, "onScrollStateChanged:11111 " + count);
-            if (lastVisiblePosition == count - 1) {
+            if (lastVisiblePosition == count - 1 && !isLoadMore) {   //
                 Log.i(TAG, "onScrollStateChanged: 加载更多.....");
+                isLoadMore = true;
                 mFooterView.setPadding(0, 0, 0, 0);
                 setSelection(getCount() - 1);
                 Log.i(TAG, "onScrollStateChanged: " + getCount());
+                //通知主界面加载下一页
+                if (mListener != null) {
+                    mListener.onLoadMore();
+                }
             }
         }
     }
@@ -277,5 +299,8 @@ public class PullToRefreshListView extends ListView implements AbsListView.OnScr
      */
     public interface OnRefreshListener{
         public void onRefresh();
+
+        //下拉加载更多
+        public void onLoadMore();
     }
 }

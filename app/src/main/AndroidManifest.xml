@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
     <application
         android:name=".MyApp"
         android:allowBackup="true"
@@ -28,6 +32,10 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.PageIndicatorDefaults" />
+        <activity android:name=".NewsDetailActivity" />
+
+        <meta-data android:value="5b553532f29d9819850000d5" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="heima" android:name="UMENG_CHANNEL"/>
     </application>
 
 </manifest>

@@ -12,6 +12,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.RelativeLayout;
 
 import com.example.as.zhbj.utils.PrefUtils;
+import com.umeng.analytics.MobclickAgent;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -67,7 +68,7 @@ public class SplashActivity extends AppCompatActivity {
                     intent = new Intent(SplashActivity.this, GuideActivity.class);
                 } else {
                     //主页面
-                    intent = new Intent(SplashActivity.this,MainActivity.class);
+                    intent = new Intent(SplashActivity.this, MainActivity.class);
                 }
                 startActivity(intent);
                 finish();
@@ -78,5 +79,15 @@ public class SplashActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

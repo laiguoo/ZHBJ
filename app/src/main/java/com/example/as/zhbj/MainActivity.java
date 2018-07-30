@@ -6,11 +6,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.as.zhbj.fragment.ContentFragment;
 import com.example.as.zhbj.fragment.LeftMenuFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.umeng.analytics.MobclickAgent;
 
 import org.xutils.x;
 
@@ -30,7 +32,11 @@ public class MainActivity extends SlidingFragmentActivity {
         setBehindContentView(R.layout.left_menu);
         SlidingMenu slidingMenu = getSlidingMenu();
         slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);    //全屏触摸
-        slidingMenu.setBehindOffset(400);   //屏幕预留200像素宽度
+//        slidingMenu.setBehindOffset(200);   //屏幕预留200像素宽度
+
+        WindowManager windowManager = getWindowManager();
+        int width = windowManager.getDefaultDisplay().getWidth();
+        slidingMenu.setBehindOffset(width * 200 / 320);
 
         initFragment();
 //        x.view().inject(this);
@@ -69,5 +75,14 @@ public class MainActivity extends SlidingFragmentActivity {
             fm = getSupportFragmentManager();
         }
         return (ContentFragment) fm.findFragmentByTag(TAG_CONTENT);
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

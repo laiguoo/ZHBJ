@@ -20,9 +20,9 @@ public class PrefUtils {
 
     }
 
-    public static String getString(Context ctx, String key, String value) {
+    public static String getString(Context ctx, String key, String defValue) {
         SharedPreferences sp = ctx.getSharedPreferences("config", Context.MODE_PRIVATE);
-        return sp.getString(key, value);
+        return sp.getString(key, defValue);
 
     }
 

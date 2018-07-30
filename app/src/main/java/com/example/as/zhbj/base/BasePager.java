@@ -22,6 +22,7 @@ public class BasePager {
     public ImageButton btnMennu;
     public FrameLayout flContent;   //空的帧布局对象，要动态添加布局
     public View mRootView;    //当前页面的布局对象
+    public ImageButton btnPhoto;
 
     public BasePager(Activity activity) {
         this.mActivity = activity;
@@ -34,6 +35,7 @@ public class BasePager {
         tvTitle = view.findViewById(R.id.tv_title);
         btnMennu = view.findViewById(R.id.btn_menu);
         flContent = view.findViewById(R.id.fl_content);
+        btnPhoto = view.findViewById(R.id.btn_photo);
         btnMennu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

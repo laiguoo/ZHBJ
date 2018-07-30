@@ -16,7 +16,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.example.as.zhbj.utils.DensityUtils;
 import com.example.as.zhbj.utils.PrefUtils;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +128,8 @@ public class GuideActivity extends AppCompatActivity {
                     ViewGroup.LayoutParams.WRAP_CONTENT);
             if (i > 0) {
                 //从第二个点开始设置左边距
-                layoutParams.leftMargin = 10;
+//                layoutParams.leftMargin = 10;
+                layoutParams.leftMargin = DensityUtils.dip2px(10, this);
             }
             point.setLayoutParams(layoutParams);
             llContainer.addView(point);
@@ -161,6 +164,15 @@ public class GuideActivity extends AppCompatActivity {
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
             container.removeView((View) object);
         }
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
 }
